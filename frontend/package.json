@@ -5,13 +5,15 @@
   "homepage": "https://josiah-tonny.github.io/GO2COD_FS_04",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "set \"CI=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-react": "^7.22.0",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "clsx": "^2.0.0",
@@ -26,7 +28,12 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^5.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
   },
   "repository": {
     "type": "git",

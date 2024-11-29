@@ -6,66 +6,33 @@ import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
-// Add error logging
+// Environment logging
 console.log('Environment:', process.env.NODE_ENV);
 console.log('API URL:', process.env.REACT_APP_API_URL);
+console.log('Base Path:', process.env.PUBLIC_URL);
 
-// Error handling
+// Error handling setup
 window.onerror = function(msg, url, lineNo, columnNo, error) {
-  console.error('Global Error:', { msg, url, lineNo, columnNo, error });
+  console.error('Global Error:', {
+    msg,
+    url,
+    lineNo,
+    columnNo,
+    error,
+    path: window.location.pathname
+  });
   return false;
 };
 
-// Error Boundary Component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('React Error Boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-          <div className="text-center p-8 bg-white rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">
-              Something went wrong
-            </h1>
-            <pre className="text-sm text-gray-600 bg-gray-100 p-4 rounded">
-              {this.state.error?.message}
-            </pre>
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              onClick={() => window.location.reload()}
-            >
-              Reload Page
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-// Get root element
+// Root element setup
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-// Render app with error boundary
+// App rendering with GitHub Pages basename
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <AuthProvider>
           <ThemeProvider>
             <App />
@@ -76,7 +43,10 @@ root.render(
   </React.StrictMode>
 );
 
-// Handle unhandled promise rejections
+// Promise rejection handling
 window.addEventListener('unhandledrejection', event => {
-  console.error('Unhandled Promise Rejection:', event.reason);
+  console.error('Unhandled Promise Rejection:', {
+    reason: event.reason,
+    path: window.location.pathname
+  });
 });
