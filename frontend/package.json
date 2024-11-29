@@ -1,12 +1,32 @@
 {
   "name": "portfolio-cms-frontend",
   "version": "1.0.0",
-  "private": "true",
+  "private": true,
+  "homepage": "https://josiah-tonny.github.io/GO2COD_FS_04",
   "scripts": {
     "start": "react-scripts start",
-    "build": "set \"CI=false\" && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.14",
+    "axios": "^1.4.0",
+    "clsx": "^2.0.0",
+    "jwt-decode": "^3.1.2",
+    "postcss": "^8.4.24",
+    "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   },
   "repository": {
     "type": "git",
@@ -16,23 +36,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Josiah-Tonny/GO2COD_FS_04/issues"
-  },
-  "homepage": "https://github.com/Josiah-Tonny/GO2COD_FS_04#readme",
-  "description": "",
-  "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "axios": "^1.7.8",
-    "clsx": "^2.1.1",
-    "jwt-decode": "^4.0.0",
-    "portfolio-cms-frontend": "file:",
-    "postcss": "^8.4.49",
-    "react": "^18.3.1",
-    "react-cookie": "^7.2.2",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.3.0",
-    "react-router-dom": "^7.0.1",
-    "react-scripts": "^5.0.1",
-    "tailwindcss": "^3.4.15"
   },
   "browserslist": {
     "production": [
