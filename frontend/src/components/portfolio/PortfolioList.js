@@ -1,4 +1,3 @@
-// src/components/portfolio/PortfolioList.js
 import React, { useState, useEffect } from 'react';
 import { portfolioService } from '../../services/portfolioService';
 import PortfolioItem from './PortfolioItem';
@@ -8,21 +7,21 @@ const PortfolioList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPortfolio = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await portfolioService.getPortfolio();
-        setPortfolio(data);
-      } catch (err) {
-        console.error('Failed to fetch portfolio:', err);
-        setError('Failed to load portfolio items. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchPortfolio = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await portfolioService.getPortfolio();
+      setPortfolio(data);
+    } catch (err) {
+      console.error('Failed to fetch portfolio:', err);
+      setError(err.message || 'Failed to load portfolio items');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchPortfolio();
   }, []);
 
@@ -37,10 +36,10 @@ const PortfolioList = () => {
   if (error) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-red-600">Error</h2>
+        <h2 className="text-2xl font-bold text-red-600">Error Loading Portfolio</h2>
         <p className="mt-2 text-gray-600">{error}</p>
         <button 
-          onClick={() => window.location.reload()}
+          onClick={fetchPortfolio}
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           Try Again
