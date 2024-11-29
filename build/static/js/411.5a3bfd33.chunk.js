@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkportfolio_cms_frontend=self.webpackChunkportfolio_cms_frontend||[]).push([[411],{411:(e,t,s)=>{s.r(t),s.d(t,{default:()=>a});var c=s(43),i=s(816),f=s(906),r=s(579);const a=()=>{const{token:e}=(0,f.g)(),[t,s]=(0,c.useState)("");return(0,c.useEffect)((()=>{(async()=>{try{await i.y.verifyEmail(e),s("Email verified successfully")}catch(t){s("Verification failed")}})()}),[e]),(0,r.jsx)("div",{children:t})}}}]);
-//# sourceMappingURL=411.5a3bfd33.chunk.js.map
