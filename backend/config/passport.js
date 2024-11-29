@@ -1,31 +1,25 @@
-const passport = require('passport');
-const { ExtractJwt, Strategy: JwtStrategy } = require('passport-jwt');
-const User = require('../models/User'); // Import the User model
-const dotenv = require('dotenv');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User = require('../models/User');
 
-// Load environment variables
-dotenv.config();
-
-// JWT Strategy options
 const options = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET
 };
 
-// JWT Strategy to verify the token and get the user
-passport.use(
-    new JwtStrategy(options, async (payload, done) => {
-        try {
-            const user = await User.findById(payload.id);
-            if (!user) {
-                return done(null, false, { message: 'User not found' });
-            }
-            return done(null, user);
-        } catch (error) {
-            return done(error, false);
+module.exports = (passport) => {
+  passport.use(
+    new JwtStrategy(options, async (jwt_payload, done) => {
+      try {
+        const user = await User.findById(jwt_payload.id);
+        if (user) {
+          return done(null, user);
         }
+        return done(null, false);
+      } catch (error) {
+        console.error('Passport Error:', error);
+        return done(error, false);
+      }
     })
-);
-
-// Exporting passport to be used in other parts of the application
-module.exports = passport;
+  );
+};
