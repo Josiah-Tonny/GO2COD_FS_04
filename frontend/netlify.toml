@@ -1,17 +1,8 @@
 [build]
-  base = "frontend"
-  command = "CI=false npm run build"
+  command = "npm run build:netlify"
   publish = "build"
-
-[build.environment]
-  NODE_VERSION = "16"
-  CI = "false"
-  REACT_APP_API_URL = "https://go2cod-fs-04.onrender.com/api"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[context.production.environment]
-  REACT_APP_ENV = "production"
