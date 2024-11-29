@@ -1,13 +1,31 @@
 {
   "files": {
-    "main.css": "/GO2COD_FS_04/static/css/main.4538be73.css",
-    "main.js": "/GO2COD_FS_04/static/js/main.71d41c0d.js",
+    "main.css": "/GO2COD_FS_04/static/css/main.ae85c86b.css",
+    "main.js": "/GO2COD_FS_04/static/js/main.c2aadd9f.js",
+    "static/js/736.dfbca9a8.chunk.js": "/GO2COD_FS_04/static/js/736.dfbca9a8.chunk.js",
+    "static/js/750.f0095263.chunk.js": "/GO2COD_FS_04/static/js/750.f0095263.chunk.js",
+    "static/js/192.d93f1f4c.chunk.js": "/GO2COD_FS_04/static/js/192.d93f1f4c.chunk.js",
+    "static/js/844.f11a0048.chunk.js": "/GO2COD_FS_04/static/js/844.f11a0048.chunk.js",
+    "static/js/600.03b449fa.chunk.js": "/GO2COD_FS_04/static/js/600.03b449fa.chunk.js",
+    "static/js/17.eaf460cf.chunk.js": "/GO2COD_FS_04/static/js/17.eaf460cf.chunk.js",
+    "static/js/243.b60c5443.chunk.js": "/GO2COD_FS_04/static/js/243.b60c5443.chunk.js",
+    "static/js/856.6fe4ca11.chunk.js": "/GO2COD_FS_04/static/js/856.6fe4ca11.chunk.js",
+    "static/js/411.b5d3d934.chunk.js": "/GO2COD_FS_04/static/js/411.b5d3d934.chunk.js",
     "index.html": "/GO2COD_FS_04/index.html",
-    "main.4538be73.css.map": "/GO2COD_FS_04/static/css/main.4538be73.css.map",
-    "main.71d41c0d.js.map": "/GO2COD_FS_04/static/js/main.71d41c0d.js.map"
+    "main.ae85c86b.css.map": "/GO2COD_FS_04/static/css/main.ae85c86b.css.map",
+    "main.c2aadd9f.js.map": "/GO2COD_FS_04/static/js/main.c2aadd9f.js.map",
+    "736.dfbca9a8.chunk.js.map": "/GO2COD_FS_04/static/js/736.dfbca9a8.chunk.js.map",
+    "750.f0095263.chunk.js.map": "/GO2COD_FS_04/static/js/750.f0095263.chunk.js.map",
+    "192.d93f1f4c.chunk.js.map": "/GO2COD_FS_04/static/js/192.d93f1f4c.chunk.js.map",
+    "844.f11a0048.chunk.js.map": "/GO2COD_FS_04/static/js/844.f11a0048.chunk.js.map",
+    "600.03b449fa.chunk.js.map": "/GO2COD_FS_04/static/js/600.03b449fa.chunk.js.map",
+    "17.eaf460cf.chunk.js.map": "/GO2COD_FS_04/static/js/17.eaf460cf.chunk.js.map",
+    "243.b60c5443.chunk.js.map": "/GO2COD_FS_04/static/js/243.b60c5443.chunk.js.map",
+    "856.6fe4ca11.chunk.js.map": "/GO2COD_FS_04/static/js/856.6fe4ca11.chunk.js.map",
+    "411.b5d3d934.chunk.js.map": "/GO2COD_FS_04/static/js/411.b5d3d934.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4538be73.css",
-    "static/js/main.71d41c0d.js"
+    "static/css/main.ae85c86b.css",
+    "static/js/main.c2aadd9f.js"
   ]
 }

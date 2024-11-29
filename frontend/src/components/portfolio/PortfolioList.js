@@ -1,3 +1,4 @@
+// src/components/portfolio/PortfolioList.js
 import React, { useState, useEffect } from 'react';
 import { portfolioService } from '../../services/portfolioService';
 import PortfolioItem from './PortfolioItem';
@@ -11,11 +12,12 @@ const PortfolioList = () => {
     const fetchPortfolio = async () => {
       try {
         setLoading(true);
+        setError(null);
         const data = await portfolioService.getPortfolio();
         setPortfolio(data);
       } catch (err) {
         console.error('Failed to fetch portfolio:', err);
-        setError('Failed to load portfolio items');
+        setError('Failed to load portfolio items. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -35,12 +37,13 @@ const PortfolioList = () => {
   if (error) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-red-600">{error}</h2>
+        <h2 className="text-2xl font-bold text-red-600">Error</h2>
+        <p className="mt-2 text-gray-600">{error}</p>
         <button 
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
-          Retry
+          Try Again
         </button>
       </div>
     );
@@ -48,18 +51,24 @@ const PortfolioList = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Portfolio</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {portfolio.length > 0 ? (
-          portfolio.map((item) => (
-            <PortfolioItem key={item._id} item={item} />
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12 text-gray-600">
-            No portfolio items found
-          </div>
-        )}
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">Portfolio</h2>
       </div>
+
+      {portfolio.length === 0 ? (
+        <div className="text-center py-12 bg-white rounded-lg shadow-sm">
+          <p className="text-gray-600">No portfolio items found</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {portfolio.map((item) => (
+            <PortfolioItem 
+              key={item._id} 
+              item={item}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
