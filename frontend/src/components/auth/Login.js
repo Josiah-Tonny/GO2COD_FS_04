@@ -1,11 +1,11 @@
-// src/components/auth/Login.js
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -13,6 +13,13 @@ const Login = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Show registration success message if available
+    if (location.state?.message) {
+      setError({ type: 'success', message: location.state.message });
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     setFormData({
@@ -30,7 +37,7 @@ const Login = () => {
       await login(formData);
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(err.message || 'Failed to login');
+      setError({ type: 'error', message: err.message || 'Failed to login' });
     } finally {
       setIsLoading(false);
     }
@@ -44,10 +51,12 @@ const Login = () => {
             Sign in to your account
           </h2>
         </div>
-        
+
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <span className="block sm:inline">{error}</span>
+          <div className={`${
+            error.type === 'success' ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700'
+          } px-4 py-3 rounded relative border`} role="alert">
+            <span className="block sm:inline">{error.message}</span>
           </div>
         )}
 
@@ -64,6 +73,7 @@ const Login = () => {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </div>
             <div>
@@ -77,6 +87,7 @@ const Login = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -85,18 +96,35 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors ${
                 isLoading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? (
+                <>
+                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  </span>
+                  Signing in...
+                </>
+              ) : 'Sign in'}
             </button>
           </div>
 
-          <div className="text-sm text-center">
-            <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Don't have an account? Register
-            </Link>
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                Don't have an account?
+              </Link>
+            </div>
+            <div className="text-sm">
+              <Link to="/password-reset" className="font-medium text-indigo-600 hover:text-indigo-500">
+                Forgot your password?
+              </Link>
+            </div>
           </div>
         </form>
       </div>

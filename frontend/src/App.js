@@ -5,19 +5,27 @@ import PrivateRoute from './components/common/PrivateRoute';
 
 // Utility function for lazy loading with error handling
 const lazyLoadComponent = (componentPath, componentName) => {
-  return lazy(() =>
+  return lazy(() => 
     import(componentPath).catch(err => {
       console.error(`Failed to load ${componentName}:`, err);
       return {
         default: () => (
-          <div className="text-red-600 p-4">Error loading {componentName}</div>
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-red-600">Failed to load {componentName}</h2>
+            <button 
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Retry
+            </button>
+          </div>
         )
       };
     })
   );
 };
 
-// Components
+// Lazy loaded components
 const AdminDashboard = lazyLoadComponent('./components/admin/AdminDashboard', 'AdminDashboard');
 const PortfolioManager = lazyLoadComponent('./components/admin/PortfolioManager', 'PortfolioManager');
 const BlogPostManager = lazyLoadComponent('./components/admin/BlogPostManager', 'BlogPostManager');
@@ -28,13 +36,14 @@ const Register = lazyLoadComponent('./components/auth/Register', 'Register');
 const PasswordReset = lazyLoadComponent('./components/auth/PasswordReset', 'PasswordReset');
 const EmailVerification = lazyLoadComponent('./components/auth/EmailVerification', 'EmailVerification');
 
-// Components
+// Loading spinner component
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-screen">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900" />
   </div>
 );
 
+// 404 component
 const NotFound = () => (
   <div className="text-center py-12">
     <h2 className="text-2xl font-bold text-gray-900">Page Not Found</h2>
@@ -81,10 +90,10 @@ function App() {
 
             {/* Protected Admin Routes */}
             {adminRoutes.map(({ path, element }) => (
-              <Route
-                key={path}
-                path={path}
-                element={<PrivateRoute>{element}</PrivateRoute>}
+              <Route 
+                key={path} 
+                path={path} 
+                element={<PrivateRoute>{element}</PrivateRoute>} 
               />
             ))}
 
