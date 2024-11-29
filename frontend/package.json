@@ -1,11 +1,11 @@
 {
-  "name": "y",
+  "name": "portfolio-cms-frontend",
   "version": "1.0.0",
-  "main": "postcss.config.js",
+  "private": "true",
   "scripts": {
     "start": "react-scripts start",
+    "build": "CI=false react-scripts build",
     "test": "react-scripts test",
-    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "axios": "^1.7.8",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
+    "portfolio-cms-frontend": "file:",
     "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-cookie": "^7.2.2",
@@ -31,8 +32,7 @@
     "react-icons": "^5.3.0",
     "react-router-dom": "^7.0.1",
     "react-scripts": "^5.0.1",
-    "tailwindcss": "^3.4.15",
-    "y": "file:"
+    "tailwindcss": "^3.4.15"
   },
   "browserslist": {
     "production": [
