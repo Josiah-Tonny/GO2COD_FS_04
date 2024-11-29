@@ -29,15 +29,15 @@ const lazyLoadComponent = (componentPath, componentName) => {
 };
 
 // Lazy loaded components
-const AdminDashboard = lazyLoadComponent('./components/admin/AdminDashboard', 'AdminDashboard');
-const PortfolioManager = lazyLoadComponent('./components/admin/PortfolioManager', 'PortfolioManager');
-const BlogPostManager = lazyLoadComponent('./components/admin/BlogPostManager', 'BlogPostManager');
-const PortfolioList = lazyLoadComponent('./components/portfolio/PortfolioList', 'PortfolioList');
-const BlogList = lazyLoadComponent('./components/blog/BlogList', 'BlogList');
-const Login = lazyLoadComponent('./components/auth/Login', 'Login');
-const Register = lazyLoadComponent('./components/auth/Register', 'Register');
-const PasswordReset = lazyLoadComponent('./components/auth/PasswordReset', 'PasswordReset');
-const EmailVerification = lazyLoadComponent('./components/auth/EmailVerification', 'EmailVerification');
+const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
+const PortfolioManager = lazy(() => import('./components/admin/PortfolioManager'));
+const BlogPostManager = lazy(() => import('./components/admin/BlogPostManager'));
+const PortfolioList = lazy(() => import('./components/portfolio/PortfolioList'));
+const BlogList = lazy(() => import('./components/blog/BlogList'));
+const Login = lazy(() => import('./components/auth/Login'));
+const Register = lazy(() => import('./components/auth/Register'));
+const PasswordReset = lazy(() => import('./components/auth/PasswordReset'));
+const EmailVerification = lazy(() => import('./components/auth/EmailVerification'));
 
 // Loading spinner component
 const LoadingSpinner = () => (
