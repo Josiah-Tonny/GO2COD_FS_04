@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/common/Navigation';
 import PrivateRoute from './components/common/PrivateRoute';
 
@@ -11,10 +11,13 @@ const lazyLoadComponent = (componentPath, componentName) => {
       return {
         default: () => (
           <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-red-600">Failed to load {componentName}</h2>
+            <h2 className="text-2xl font-bold text-red-600">
+              Failed to load {componentName}
+            </h2>
+            <p className="text-gray-600 mt-2">{err.message}</p>
             <button 
               onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
             >
               Retry
             </button>
@@ -48,6 +51,12 @@ const NotFound = () => (
   <div className="text-center py-12">
     <h2 className="text-2xl font-bold text-gray-900">Page Not Found</h2>
     <p className="mt-2 text-gray-600">The page you're looking for doesn't exist.</p>
+    <button 
+      onClick={() => window.location.href = process.env.PUBLIC_URL + '/'}
+      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+    >
+      Go Home
+    </button>
   </div>
 );
 
@@ -78,6 +87,12 @@ function App() {
       <Suspense fallback={<LoadingSpinner />}>
         <main className="container mx-auto px-4 py-8">
           <Routes>
+            {/* GitHub Pages redirect */}
+            <Route 
+              path="/GO2COD_FS_04" 
+              element={<Navigate to="/" replace />} 
+            />
+
             {/* Public Routes */}
             {publicRoutes.map(({ path, element }) => (
               <Route key={path} path={path} element={element} />
