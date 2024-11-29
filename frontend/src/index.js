@@ -1,6 +1,6 @@
-// frontend/src/index.js
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
@@ -15,23 +15,6 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
   console.error('Global Error:', { msg, url, lineNo, columnNo, error });
   return false;
 };
-
-// Get root element
-const container = document.getElementById('root');
-const root = createRoot(container);
-
-// Render app with error boundary
-root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <AuthProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </AuthProvider>
-    </ErrorBoundary>
-  </React.StrictMode>
-);
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -73,6 +56,25 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+// Get root element
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+// Render app with error boundary
+root.render(
+  <React.StrictMode>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
+  </React.StrictMode>
+);
 
 // Handle unhandled promise rejections
 window.addEventListener('unhandledrejection', event => {

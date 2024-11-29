@@ -1,27 +1,77 @@
-// src/App.js
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-
-// Import components that should always be available immediately
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Navigation from './components/common/Navigation';
 import PrivateRoute from './components/common/PrivateRoute';
-
-// Lazy load other components
-const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
-const PortfolioManager = lazy(() => import('./components/admin/PortfolioManager'));
-const BlogPostManager = lazy(() => import('./components/admin/BlogPostManager'));
-const PortfolioList = lazy(() => import('./components/portfolio/PortfolioList'));
-const BlogList = lazy(() => import('./components/blog/BlogList'));
-const Login = lazy(() => import('./components/auth/Login'));
-const Register = lazy(() => import('./components/auth/Register'));
-const PasswordReset = lazy(() => import('./components/auth/PasswordReset'));
-const EmailVerification = lazy(() => import('./components/auth/EmailVerification'));
 
 // Loading component
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-screen">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
   </div>
+);
+
+// Lazy load components with error handling
+const AdminDashboard = lazy(() => 
+  import('./components/admin/AdminDashboard').catch(err => {
+    console.error('Failed to load AdminDashboard:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const PortfolioManager = lazy(() => 
+  import('./components/admin/PortfolioManager').catch(err => {
+    console.error('Failed to load PortfolioManager:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const BlogPostManager = lazy(() => 
+  import('./components/admin/BlogPostManager').catch(err => {
+    console.error('Failed to load BlogPostManager:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const PortfolioList = lazy(() => 
+  import('./components/portfolio/PortfolioList').catch(err => {
+    console.error('Failed to load PortfolioList:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const BlogList = lazy(() => 
+  import('./components/blog/BlogList').catch(err => {
+    console.error('Failed to load BlogList:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const Login = lazy(() => 
+  import('./components/auth/Login').catch(err => {
+    console.error('Failed to load Login:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const Register = lazy(() => 
+  import('./components/auth/Register').catch(err => {
+    console.error('Failed to load Register:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const PasswordReset = lazy(() => 
+  import('./components/auth/PasswordReset').catch(err => {
+    console.error('Failed to load PasswordReset:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
+);
+
+const EmailVerification = lazy(() => 
+  import('./components/auth/EmailVerification').catch(err => {
+    console.error('Failed to load EmailVerification:', err);
+    return { default: () => <div>Error loading component</div> };
+  })
 );
 
 // 404 Page component
@@ -33,6 +83,8 @@ const NotFound = () => (
 );
 
 function App() {
+  console.log('App rendering');
+  
   return (
     <div className="min-h-screen bg-gray-100">
       <Navigation />
