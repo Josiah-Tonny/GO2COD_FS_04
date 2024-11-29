@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Josiah-Tonny/GO2COD_FS_04/static/css/main.6055888c.css",
+    "main.js": "/Josiah-Tonny/GO2COD_FS_04/static/js/main.14141f34.js",
+    "index.html": "/Josiah-Tonny/GO2COD_FS_04/index.html",
+    "main.6055888c.css.map": "/Josiah-Tonny/GO2COD_FS_04/static/css/main.6055888c.css.map",
+    "main.14141f34.js.map": "/Josiah-Tonny/GO2COD_FS_04/static/js/main.14141f34.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6055888c.css",
+    "static/js/main.14141f34.js"
+  ]
+}

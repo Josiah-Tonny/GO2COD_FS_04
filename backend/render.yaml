@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: portfolio-cms-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGODB_URI
+        value: "mongodb+srv://tonnyjosiah0:7o6qXXq7OLB9RocW@portfolio.vzb1i.mongodb.net/"
+      - key: JWT_SECRET
+        value: "w876c8e78ce8c7ce"
+      - key: NODE_ENV
+        value: "production"

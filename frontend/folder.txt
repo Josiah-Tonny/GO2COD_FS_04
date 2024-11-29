@@ -1,0 +1,61 @@
+portfolio-cms/
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Auth/
+│   │   │   │   ├── Login.js
+│   │   │   │   ├── Register.js
+│   │   │   │   ├── PasswordReset.js
+│   │   │   │   └── EmailVerification.js
+│   │   │   ├── Admin/
+│   │   │   │   ├── Dashboard.js
+│   │   │   │   ├── PortfolioManager.js
+│   │   │   │   └── BlogPostManager.js
+│   │   │   ├── Portfolio/
+│   │   │   │   ├── PortfolioList.js
+│   │   │   │   └── PortfolioItem.js
+│   │   │   ├── Blog/
+│   │   │   │   ├── BlogList.js
+│   │   │   │   └── BlogPost.js
+│   │   │   └── Common/
+│   │   │       ├── Navbar.js
+│   │   │       └── ProtectedRoute.js
+│   │   ├── contexts/
+│   │   │   ├── AuthContext.js
+│   │   │   └── ThemeContext.js
+│   │   ├── services/
+│   │   │   ├── authService.js
+│   │   │   ├── portfolioService.js
+│   │   │   └── blogService.js
+│   │   ├── utils/
+│   │   │   ├── api.js
+│   │   │   └── validation.js
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+│
+├── backend/
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── PortfolioItem.js
+│   │   └── BlogPost.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── portfolio.js
+│   │   └── blog.js
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   └── roleCheck.js
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── portfolioController.js
+│   │   └── blogController.js
+│   ├── config/
+│   │   ├── database.js
+│   │   └── emailConfig.js
+│   └── server.js
+│
+└── README.md
