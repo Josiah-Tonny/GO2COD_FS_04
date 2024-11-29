@@ -2,101 +2,68 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authService } from '../services/authService';
 
-// Create the context
 const AuthContext = createContext(null);
 
-// Custom hook for using auth context
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const currentUser = authService.getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  const login = async (credentials) => {
+    try {
+      const data = await authService.login(credentials);
+      setUser(data.user);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      const data = await authService.register(userData);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-};
-
-// Auth Provider component
-export const AuthProvider = ({ children }) => {
-  const [authState, setAuthState] = useState({
-    isAuthenticated: false,
-    user: null,
-    loading: true,
-    error: null
-  });
-
-  useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (token) {
-          const user = await authService.validateToken(token);
-          setAuthState({
-            isAuthenticated: true,
-            user,
-            loading: false,
-            error: null
-          });
-        } else {
-          setAuthState({
-            isAuthenticated: false,
-            user: null,
-            loading: false,
-            error: null
-          });
-        }
-      } catch (error) {
-        setAuthState({
-          isAuthenticated: false,
-          user: null,
-          loading: false,
-          error: error.message
-        });
-      }
-    };
-
-    initializeAuth();
-  }, []);
-
-  const login = async (credentials) => {
-    try {
-      setAuthState(prev => ({ ...prev, loading: true }));
-      const { user, token } = await authService.login(credentials);
-      localStorage.setItem('token', token);
-      setAuthState({
-        isAuthenticated: true,
-        user,
-        loading: false,
-        error: null
-      });
-    } catch (error) {
-      setAuthState({
-        isAuthenticated: false,
-        user: null,
-        loading: false,
-        error: error.message
-      });
-      throw error;
-    }
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setAuthState({
-      isAuthenticated: false,
-      user: null,
-      loading: false,
-      error: null
-    });
-  };
-
-  const value = {
-    authState,
-    login,
-    logout
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
 };

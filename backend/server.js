@@ -16,12 +16,15 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://josiah-tonny.github.io'
-  ],
-  credentials: true
-}));
+    origin: [
+      'http://localhost:3000',
+      'https://josiah-tonny.github.io',
+      'https://go2cod-fs-04.netlify.app'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

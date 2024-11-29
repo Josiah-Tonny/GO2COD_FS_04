@@ -1,26 +1,38 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/api/auth';
+// src/services/authService.js
+import api from '../utils/api';
 
 export const authService = {
-  login: async (email, password) => {
-    const response = await axios.post(`${API_URL}/login`, { email, password });
-    localStorage.setItem('token', response.data.token); // Save the token in localStorage
-    return response.data;
+  register: async (userData) => {
+    try {
+      const response = await api.post('/auth/register', userData);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Registration failed');
+    }
   },
 
-  register: async (name, email, password) => {
-    const response = await axios.post(`${API_URL}/register`, { name, email, password });
-    return response.data;
+  login: async (credentials) => {
+    try {
+      const response = await api.post('/auth/login', credentials);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Login failed');
+    }
   },
 
-  passwordReset: async (email) => {
-    const response = await axios.post(`${API_URL}/reset-password`, { email });
-    return response.data;
+  logout: () => {
+    localStorage.removeItem('token');
   },
 
-  verifyEmail: async (token) => {
-    const response = await axios.get(`${API_URL}/verify-email/${token}`);
-    return response.data;
-  },
+  getCurrentUser: () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Implement JWT decode logic here if needed
+      return token;
+    }
+    return null;
+  }
 };
